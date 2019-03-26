@@ -19,7 +19,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Pane root = FXMLLoader.load(getClass().getResource(GUI), Messages.getResourceBundle());
-		Scene scene = new Scene(root, 500, 700);
+		Scene scene = new Scene(root, 1000, 700);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
