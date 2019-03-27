@@ -1,75 +1,100 @@
 package unbabel_jcc;
 
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import unbabel_jcc.resources.Status;
+
 public class Translation {
-	
-	class Language {
-		
-		private String language;
-		private String short_form;
-		
-		public Language(String language, String short_form) {
-			super();
-			this.language = language;
-			this.short_form = short_form;
-		}
 
-		public String getLanguage() {
-			return language;
-		}
 
-		public String getShort_form() {
-			return short_form;
-		}
-		
-	}
-	
-	
-	private String from;
-	private String to;
-	private String original;
-	private String translated;
-	private boolean status;
-	
-	
-	public Translation(String from, String to, String original) {
+	private LanguagePair langPair;
+	private Status status;
+	private String originalText;
+	private String translatedText;
+	private String uid;
+
+	private TextArea translatedTextArea;
+	private Label statusLabel;
+
+
+	public Translation(LanguagePair langPair, String originalText) {
 		super();
-		this.from = from;
-		this.to = to;
-		this.original = original;
-		translated = null;
-		status = false;
+		this.langPair = langPair;
+		this.originalText = originalText;
+		status = Status.PROCESSING;		
+		translatedText = "";
+		uid = "";
 	}
 
 
-	public String getFrom() {
-		return from;
+	public void setAsRequested(String uid) {
+		this.uid = uid;
+		status = Status.REQUESTED;
+		Platform.runLater(new Runnable() {
+			public void run() {
+				statusLabel.setText(status.name().toLowerCase());
+			}
+		});
 	}
 
-	public String getTo() {
-		return to;
+
+	public void setAsCompleted(String translated) {
+		System.out.println(translated);
+		this.translatedText = translated;
+		status = Status.COMPLETED;
+		//System.out.println(statusLabel.toString());
+		Platform.runLater(new Runnable() {
+			public void run() {
+				statusLabel.setText(status.name().toLowerCase());
+				translatedTextArea.setText(translatedText);
+			}
+		});
 	}
 
-	public String getOriginal() {
-		return original;
+
+	public LanguagePair getLangPair() {
+		return langPair;
 	}
 
-	public String getTranslated() {
-		return translated;
-	}
 
-	public String getStatus() {
-		String status = this.status ? "Completed" : "Waiting";
+	public Status getStatus() {
 		return status;
 	}
-	
-	
-	public void finishTranslation(String translated) {
-		this.translated = translated;
-		status = true;
+
+
+	public String getOriginalText() {
+		return originalText;
 	}
-	
-	
-	
-	
-	
+
+
+	public String getTranslatedText() {
+		return translatedText;
+	}
+
+
+	public String getUid() {
+		return uid;
+	}
+
+
+	public TextArea getTranslatedTextField() {
+		return translatedTextArea;
+	}
+
+
+	public void setTranslatedTextField(TextArea translatedTextArea) {
+		this.translatedTextArea = translatedTextArea;
+	}
+
+
+	public Label getStatusLabel() {
+		return statusLabel;
+	}
+
+
+	public void setStatusLabel(Label statusLabel) {
+		this.statusLabel = statusLabel;
+	}	
+
 }
