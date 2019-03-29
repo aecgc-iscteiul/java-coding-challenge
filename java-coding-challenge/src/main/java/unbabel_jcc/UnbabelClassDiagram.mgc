@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="unbabel_jcc.LanguagePair.Language" x="126" y="626">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="unbabel_jcc.TranslationRequest" x="96" y="134">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association destinationClassName="unbabel_jcc.LanguagePair"
+            endpointName="langPair" kind="Simple"/>
+        <Association destinationClassName="unbabel_jcc.resources.Status"
+            endpointName="status" kind="Simple"/>
+    </Class>
+    <Class name="unbabel_jcc.ApiController" x="816" y="126">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Communication destinationClassName="unbabel_jcc.TranslationRequest"/>
+        <Communication destinationClassName="unbabel_jcc.LanguagePair"/>
+    </Class>
+    <Class name="unbabel_jcc.resources.Status" x="25" y="319">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="unbabel_jcc.Main" x="1125" y="414">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="unbabel_jcc.GeneralController" x="380" y="264">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association destinationClassName="unbabel_jcc.JSONParser"
+            endpointName="parser" kind="Simple"/>
+        <Association destinationClassName="unbabel_jcc.LanguagePair"
+            endpointName="availableTranslations" kind="Simple"/>
+        <Association destinationClassName="unbabel_jcc.GuiController"
+            endpointName="gui" kind="Simple">
+            <Point x="471" y="462"/>
+        </Association>
+        <Association destinationClassName="unbabel_jcc.ApiController"
+            endpointName="api" kind="Simple"/>
+        <Association
+            destinationClassName="unbabel_jcc.TranslationRequest"
+            endpointName="requests" kind="Simple"/>
+        <Communication destinationClassName="unbabel_jcc.TranslationRequest"/>
+        <Communication destinationClassName="unbabel_jcc.ApiController"/>
+        <Communication destinationClassName="unbabel_jcc.JSONParser"/>
+    </Class>
+    <Class name="unbabel_jcc.LanguagePair" x="143" y="501">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="unbabel_jcc.LanguagePair.Language"
+            endpointName="source" kind="Simple">
+            <Point x="139" y="561"/>
+        </Association>
+        <Association
+            destinationClassName="unbabel_jcc.LanguagePair.Language"
+            endpointName="target" kind="Simple">
+            <Point x="254" y="560"/>
+        </Association>
+        <Communication destinationClassName="unbabel_jcc.LanguagePair.Language"/>
+    </Class>
+    <Class name="unbabel_jcc.RequestChecker" x="810" y="397">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="unbabel_jcc.GeneralController"
+            endpointName="controller" kind="Simple"/>
+        <Communication destinationClassName="unbabel_jcc.TranslationRequest"/>
+        <Communication destinationClassName="unbabel_jcc.ApiController"/>
+        <Communication destinationClassName="unbabel_jcc.GeneralController"/>
+        <Communication destinationClassName="unbabel_jcc.JSONParser"/>
+    </Class>
+    <Class name="unbabel_jcc.JSONParser" x="808" y="262">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="unbabel_jcc.GuiController" x="392" y="521">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="unbabel_jcc.GeneralController"
+            endpointName="controller" kind="Simple">
+            <Point x="599" y="479"/>
+        </Association>
+        <Communication destinationClassName="unbabel_jcc.TranslationRequest"/>
+        <Communication destinationClassName="unbabel_jcc.GeneralController"/>
+    </Class>
+</ClassDiagram>

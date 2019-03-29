@@ -51,7 +51,8 @@ public class LanguagePair {
 	}
 	
 	public String getLanguagePairAsString() {
-		return source.getName() + " to " + target.getName();
+		return "From: " + source.getName() + 
+				" - To: " + target.getName();
 	}
 
 }

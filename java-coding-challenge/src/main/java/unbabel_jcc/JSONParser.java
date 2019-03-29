@@ -8,8 +8,7 @@ import org.json.JSONObject;
 
 public class JSONParser {
 
-
-
+	
 	public List<LanguagePair> parseLanguageRequest(String json) {
 		List<LanguagePair> availableTranslations = new ArrayList<LanguagePair>();
 		JSONObject jsonObject = new JSONObject(json);
@@ -25,7 +24,6 @@ public class JSONParser {
 			String targetShortName = targetLanguage.getString("shortname");
 			LanguagePair lp = new LanguagePair(sourceName, sourceShortName, targetName, targetShortName);
 			availableTranslations.add(lp);
-			//System.out.println(lp.getLanguagePairAsString());
 		}
 		return availableTranslations;
 	}
@@ -39,15 +37,12 @@ public class JSONParser {
 	}
 	
 	
-	public String parseCheckITranslationRequest(Translation request, String json) {		
+	public String parseCheckITranslationRequest(TranslationRequest request, String json) {		
 		JSONObject jsonObject = new JSONObject(json);
-		System.out.println(jsonObject);
 		String translatedText = "";
 		String status = jsonObject.getString("status");
-		System.out.println(status);
 		if(status.equals("completed")) {
 			translatedText = jsonObject.getString("translatedText");
-			System.out.println(translatedText);
 		} 
 		return translatedText;
 	}

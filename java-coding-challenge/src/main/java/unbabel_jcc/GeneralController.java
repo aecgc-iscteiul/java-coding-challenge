@@ -3,6 +3,7 @@ package unbabel_jcc;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,15 +12,18 @@ public class GeneralController {
 
 	private JSONParser parser;
 	private ApiController api;
-	private List<Translation> requests;
+	private GuiController gui;
+	private List<TranslationRequest> requests;
 	private List<LanguagePair> availableTranslations;
 
-	public GeneralController() {
+	public GeneralController(GuiController gui) {
+		this.gui = gui;
 		parser = new JSONParser();
 		api = new ApiController();
-		requests = new ArrayList<Translation>();
+		requests = new ArrayList<TranslationRequest>();
 		availableTranslations = new ArrayList<LanguagePair>();
-		(new RequestChecker(this)).start();
+		RequestChecker requestChecker = new RequestChecker(this);
+		requestChecker.start();
 	}
 
 	public JSONParser getParser() {
@@ -31,7 +35,7 @@ public class GeneralController {
 	}
 
 
-	public List<Translation> getUids() {
+	public List<TranslationRequest> getUids() {
 		return requests;
 	}
 
@@ -40,26 +44,41 @@ public class GeneralController {
 	}
 
 
-	public ObservableList<String> getLanguagesAvaliable() {
-		ObservableList<String> languages = FXCollections.observableArrayList();
-		String jsonRequest = api.requestLanguages();
-		if(jsonRequest != null) {
-			availableTranslations = parser.parseLanguageRequest(jsonRequest);
-			for(LanguagePair lp: availableTranslations) {
-				languages.add(lp.getLanguagePairAsString());
+	public void getLanguagesAvaliable() {
+		Thread t = new Thread() {
+			public void run() {
+				final ObservableList<String> languages = FXCollections.observableArrayList();
+				String jsonRequest = api.requestLanguages();
+				if(jsonRequest != null) {
+					availableTranslations = parser.parseLanguageRequest(jsonRequest);
+					for(LanguagePair lp: availableTranslations) {
+						languages.add(lp.getLanguagePairAsString());
+					}
+				}
+				Platform.runLater(new Runnable() {
+					public void run() {
+						gui.setTranslationLanguagesAvailable(languages);
+					}
+				});
 			}
-		}
-		return languages;
+		};
+		t.start();
 	}
 
 
-	public void requestTranslation(final Translation request) {
+	public void requestTranslation(final TranslationRequest request) {
 		Thread t = new Thread() {
 			public void run() {
 				requests.add(request);
 				String jsonRequest = api.requestTranslation(request);
-				String uid = parser.parseTranslationRequest(jsonRequest);
-				request.setAsRequested(uid);
+				if(jsonRequest != null) {
+					String uid = parser.parseTranslationRequest(jsonRequest);
+					if(!uid.isEmpty()) {
+						request.setAsRequested(uid);
+						return;
+					}
+				}
+				request.setAsError();
 			}
 		};
 		t.start();

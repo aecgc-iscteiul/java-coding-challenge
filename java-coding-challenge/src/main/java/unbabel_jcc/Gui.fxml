@@ -6,25 +6,37 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="unbabel_jcc.GuiController">
    <children>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="700.0" prefWidth="800.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="loadingView" alignment="CENTER" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/loading_logo.gif" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <ScrollPane fx:id="normalView" hbarPolicy="NEVER" prefHeight="700.0" prefWidth="800.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1000.0">
+            <VBox fx:id="vBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="700.0" prefWidth="1000.0">
                <children>
-                  <Label fx:id="inputLabel" text="Text to translate:">
+                  <Label fx:id="inputLabel" text="%GuiController.translateText">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Label>
-                  <TextArea fx:id="inputTextArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" promptText="Insert text to translate here..." style="-fx-border-color: grey;">
+                  <TextArea fx:id="inputTextArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" promptText="%GuiController.insert" style="-fx-border-color: grey;">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin>
@@ -32,7 +44,7 @@
                         <Font name="System Italic" size="15.0" />
                      </font>
                   </TextArea>
-                  <Label fx:id="languageLabel" text="Translate:">
+                  <Label fx:id="languageLabel" text="%GuiController.translate">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding>
@@ -42,12 +54,12 @@
                         <Insets bottom="30.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <Button fx:id="submitButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onButtonClicked" text="Submit" textAlignment="RIGHT">
+                  <Button fx:id="submitButton" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onButtonClicked" text="%GuiController.submit" textAlignment="RIGHT">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin>
                   </Button>
-                  <Label fx:id="outputLabel" text="Translation:">
+                  <Label fx:id="outputLabel" text="%GuiController.translation">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
@@ -64,11 +76,11 @@
                       <RowConstraints />
                     </rowConstraints>
                      <children>
-                        <Label text="From Language" textAlignment="CENTER" />
-                        <Label fx:id="gridTitleBar" text="To Language" GridPane.columnIndex="1" />
-                        <Label text="Original Text" GridPane.columnIndex="2" />
-                        <Label text="Status" GridPane.columnIndex="3" />
-                        <Label text="Translation" GridPane.columnIndex="4" />
+                        <Label text="%GuiController.fromLang" textAlignment="CENTER" />
+                        <Label fx:id="gridTitleBar" text="%GuiController.original" GridPane.columnIndex="1" />
+                        <Label text="%GuiController.toLang" GridPane.columnIndex="2" />
+                        <Label text="%GuiController.translatated" GridPane.columnIndex="3" />
+                        <Label text="%GuiController.status" GridPane.columnIndex="4" />
                      </children>
                      <opaqueInsets>
                         <Insets />
